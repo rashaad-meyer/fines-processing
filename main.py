@@ -41,6 +41,11 @@ def main():
     
     fines_list = [{'name': key, 'fine_count': value['fine_count'], 'description': value['description']} for key, value in fines.items()]
     fines_df = pd.DataFrame(fines_list)
+
+     # Sort the DataFrame by the 'name' column
+    fines_df = fines_df.sort_values(by='name')
+
+    fines_df.to_csv('processed_fines.csv')
     print(fines_df)
     
 
