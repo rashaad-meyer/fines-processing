@@ -1,12 +1,11 @@
-from multiprocessing import process
 import pandas as pd
 import argparse
 
 # Main function to load and process the CSV file
 def main():
-    # Set up argument parser to accept file input with a default value
+    # Set up argument parser to accept file input as a positional argument
     parser = argparse.ArgumentParser(description='Process a CSV file.')
-    parser.add_argument('file', type=str, nargs='?', default='fines.csv', help='Path to the CSV file (default: fines.csv)')
+    parser.add_argument('file', type=str, help='Path to the CSV file')
     args = parser.parse_args()
 
     # Load the CSV file into a pandas DataFrame
@@ -25,7 +24,7 @@ def main():
             process_fines = False
         elif row.iloc[0] == 'Date':
             print('Date found')
-            date  = row.iloc[1]
+            date = row.iloc[1]
         elif process_fines:
             name = row.iloc[0].strip()
             fine_count = int(row.iloc[1])
@@ -42,12 +41,11 @@ def main():
     fines_list = [{'name': key, 'fine_count': value['fine_count'], 'description': value['description']} for key, value in fines.items()]
     fines_df = pd.DataFrame(fines_list)
 
-     # Sort the DataFrame by the 'name' column
+    # Sort the DataFrame by the 'name' column
     fines_df = fines_df.sort_values(by='name')
 
-    fines_df.to_csv('processed_fines.csv')
+    fines_df.to_csv('processed_fines.csv', index=False)
     print(fines_df)
-    
 
 
 if __name__ == "__main__":
