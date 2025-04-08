@@ -11,6 +11,6 @@ pip install -r requirements.txt
 
 ### 2. Running the script
 ```
-python main.py --file <fines csv file name>
+python main.py <fines csv file name>
 ```
 
