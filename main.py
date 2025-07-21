@@ -1,5 +1,6 @@
 import pandas as pd
 import argparse
+from utils import apply_bell_curve
 
 # Main function to load and process the CSV file
 def main():
@@ -43,6 +44,8 @@ def main():
 
     # Sort the DataFrame by the 'name' column
     fines_df = fines_df.sort_values(by='name')
+
+    fines_df = apply_bell_curve(fines_df, 'fine_count', target_mean=12, target_std=5)
 
     fines_df.to_csv('processed_fines.csv', index=False)
     print(fines_df)
